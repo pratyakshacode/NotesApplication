@@ -1,51 +1,30 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 const Register = () => {
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
-  const handleRegister = () => {
-    // Basic validation
-    if (!name || !email || !password) {
-      setError("All fields are required");
-      return;
+  const registerUser = async () => {
+    try {
+        const response = await axios.post(
+        'http://localhost:3000/api/auth/register', {
+        name, email, password
+      }, {
+        withCredentials: true
+      });
+      console.log(response)
+    } catch (error) {
+      console.error(error)
     }
-
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setError("Invalid email format");
-      return;
-    }
-
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters");
-      return;
-    }
-
-    setError("");
-
-    const userData = {
-      name,
-      email,
-      password,
-    };
-
-    console.log("Registered User:", userData);
-
-    // TODO: Send to backend here
-
-    // Reset fields
-    setName("");
-    setEmail("");
-    setPassword("");
-  };
+  }
 
   return (
     <div className="register-container">
       <h2>Register</h2>
 
-      {error && <p className="error">{error}</p>}
 
       <input
         type="text"
@@ -68,7 +47,7 @@ const Register = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button onClick={handleRegister}>Register</button>
+      <button onClick={registerUser}>Register</button>
     </div>
   );
 };
