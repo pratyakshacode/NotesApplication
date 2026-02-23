@@ -5,6 +5,7 @@ import url from 'url';
 import cors from 'cors';
 import { connectDB } from '../db/connect.js';
 import authRouter from '../routes/authRouter.js';
+import notesRouter from '../routes/notesRouter.js';
 
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename);
@@ -22,6 +23,7 @@ connectDB();
 // Registration of routers
 
 app.use('/api/auth', authRouter);
+app.use('/api/note', notesRouter);
 
 const PORT = 3000;
 

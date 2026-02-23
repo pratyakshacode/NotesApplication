@@ -7,6 +7,8 @@ import {
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Register from "./pages/Register"
+import CreateNote from "./pages/CreateNote"
+import AllNotes from "./pages/AllNotes"
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login/>} />
           <Route path="/register" element={<Register/>} />
+          <Route path="/note/create" element={<CreateNote/>} />
+          <Route path="/note/all" element={<AllNotes/>} />
       </Routes>
     </Router>
   )
