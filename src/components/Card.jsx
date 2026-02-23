@@ -1,7 +1,19 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
+import Modal from "./Modal";
 
-const Card = ({ title, description, time }) => {
+const Card = ({ title, description, time, _id }) => {
   const formattedDate = new Date(time).toLocaleString();
+   const [open, setOpen] = useState(false);
+  const deleteNote = async () => {
+
+    const response = await axios.delete(`http://localhost:3000/api/note/${_id}`);
+    const data = response.data
+    console.log(data);
+
+    window.location.reload();
+
+  }
 
   return (
     <div
@@ -47,6 +59,19 @@ const Card = ({ title, description, time }) => {
       >
         {formattedDate}
       </span>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 10 }}>
+            <button onClick={() => setOpen(true)} style={{ background: '#0ab163', borderRadius: 10 }} >Update Note</button>
+            <button onClick={deleteNote} style={{ background: '#ff1224', borderRadius: 10 }}>Delete Note</button>
+        </div>
+        <Modal 
+            isOpen={open} 
+            onClose={() => setOpen(false)}  
+            note={{
+                _id,
+                title,
+                description,
+            }}
+        />
     </div>
   );
 };

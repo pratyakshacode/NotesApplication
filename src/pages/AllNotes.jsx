@@ -2,11 +2,13 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Card from '../components/Card';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../components/Modal';
 
 const AllNotes = () => {
 
     const [notes, setNotes] = useState([]);
     const navigate = useNavigate();
+   
 
     useEffect(() => {
 
