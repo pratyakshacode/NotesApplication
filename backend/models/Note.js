@@ -11,6 +11,10 @@ const notesSchema = new mongoose.Schema({
     },
     time: {
         type: Date
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 
