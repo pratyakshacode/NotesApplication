@@ -9,11 +9,13 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import CreateNote from "./pages/CreateNote"
 import AllNotes from "./pages/AllNotes"
+import Navbar from "./components/Navbar"
 
 const App = () => {
   return (
     // npm i react-router-dom
     <Router>
+      <Navbar />
       <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/login" element={<Login/>} />

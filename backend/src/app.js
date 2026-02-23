@@ -27,6 +27,14 @@ app.use('/api/note', notesRouter);
 
 const PORT = 3000;
 
+app.use('/api/auth', authRouter);
+app.use('/api/note', notesRouter);
+
+// Catch-all route for React Router
+app.get('/*name', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../dist/index.html'));
+});
+
 app.listen(PORT, () => {
     console.log("Server is running on port " + PORT)
 });
