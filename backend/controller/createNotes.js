@@ -3,6 +3,10 @@ import { Note } from "../models/Note.js";
 export const createNotes = async (req, res) => {
     try {
 
+        const user = req.user;
+        const userId = user.id;
+
+
         const { title, description, time } = req.body;
 
         if(!title) {
@@ -12,7 +16,11 @@ export const createNotes = async (req, res) => {
             })
         }
 
-        const createObj = { title, description: description ?? "" }
+        const createObj = { 
+            title, 
+            description: description ?? "", 
+            createdBy: userId 
+        }
 
         if(time) {
             createObj['time'] = new Date(time);

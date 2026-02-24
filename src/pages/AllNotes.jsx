@@ -13,7 +13,7 @@ const AllNotes = () => {
     useEffect(() => {
 
         const getAllNotes = async () => {
-            const response = axios.get('http://localhost:3000/api/note');
+            const response = axios.get('http://localhost:3000/api/note', { withCredentials: true });
             const data = (await response).data;
             setNotes(data.data);
         }

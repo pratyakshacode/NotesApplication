@@ -15,6 +15,11 @@ const notesSchema = new mongoose.Schema({
     isDeleted: {
         type: Boolean,
         default: false
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+        required: true
     }
 }, { timestamps: true });
 

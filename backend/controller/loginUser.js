@@ -1,8 +1,10 @@
 import { User } from "../models/User.js";
+import jwt from 'jsonwebtoken'
 
 export const loginUser = async (req, res) => {
     try {
-        
+
+        console.log("Request came");
         const { email, password } = req.body;
 
         if(!email || !password) {
@@ -30,10 +32,25 @@ export const loginUser = async (req, res) => {
             });
         }
 
+        // generating jwt token
+        const token = await jwt.sign({
+            id: existingUser._id, 
+            email, 
+            role: "student"
+        }, "secretkeyforus");
+
+        console.log("printing token", token);
+
+        res.cookie('jwt', token,  {
+            httpOnly: true,
+            sameSite: 'lax',
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        });
+
         return res.status(200).json({
             status: "SUCCESS",
             message: "Logged in successfully",
-            data: existingUser
+            data: existingUser,
         })
 
     } catch (error) {

@@ -15,7 +15,7 @@ const CreateNote = () => {
         
         const response = await axios.post('http://localhost:3000/api/note', {
             title, description, time
-        });
+        },  { withCredentials: true });
 
         console.log(response.data);
         navigate('/note/all');

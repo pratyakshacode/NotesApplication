@@ -1,14 +1,19 @@
 import { Note } from "../models/Note.js";
 
 export const getAllNotes = async (req, res) => {
+
     try {
 
+        const user = req.user;
+        const userId = user.id;
+
         const query = {
-            isDeleted: { $ne : true }
+            isDeleted: { $ne : true },
+            createdBy: userId
         }
 
         const allNotes = await Note.find(query);
-        
+
 
         return res.status(200).json({
             status: "SUCCESS",

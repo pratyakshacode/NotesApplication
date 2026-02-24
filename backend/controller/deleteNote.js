@@ -2,8 +2,22 @@ import { Note } from "../models/Note.js";
 
 export const deleteNode = async (req, res) => {
     try {
-        
+
+        const user = req.user;
+        const userId = user.id;
+
         const { noteId } = req.params;
+
+        const note = await Note.findById(noteId);
+
+        const author = note.createdBy;
+
+        if(author !== userId) {
+            return res.status(403).json({
+                status: "FORBIDDEN",
+                message: "You are not allowed to delete this note."
+            })
+        }
         const doc = await Note.findByIdAndUpdate(noteId, { isDeleted: true });
 
         if(doc) {

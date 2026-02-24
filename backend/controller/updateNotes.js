@@ -6,10 +6,31 @@ export const updateNotes = async (req, res) => {
         const { noteId } = req.params;
         const { title, description } = req.body;
 
+        const user = req.user;
+        const userId = user.id;
+
         if(!title) {
             return res.status(400).json({
                 status: "BAD_REQUEST",
                 message: "please provide the title"
+            })
+        }
+
+        const note = await Note.findById(noteId);
+
+        if(!note) {
+            return res.status(404).json({
+                status: "SUCCESS",
+                message: "Note not found"
+            })
+        }
+
+        const author = note.createdBy;
+
+        if(author !== userId) {
+            return res.status(403).json({
+                status: "FORBIDDEN",
+                message: "You are not allowed to update this note."
             })
         }
 

@@ -6,17 +6,21 @@ import cors from 'cors';
 import { connectDB } from '../db/connect.js';
 import authRouter from '../routes/authRouter.js';
 import notesRouter from '../routes/notesRouter.js';
+import cookieParser from 'cookie-parser';
 
 const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename);
 
 const app = express();
+
 app.use(express.static(path.join(__dirname, '../../dist')));
 app.use(express.json()); // important for parsing JSON request bodies
 app.use(cors({
     origin: true,
     credentials: true
 }))
+
+app.use(cookieParser());
 
 connectDB();
 

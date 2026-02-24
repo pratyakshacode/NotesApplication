@@ -10,7 +10,7 @@ const Login = () => {
     try {
         const response = await axios.post(
         'http://localhost:3000/api/auth/login', {
-        name, email, password
+        email, password
       }, {
         withCredentials: true
       });
